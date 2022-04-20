@@ -57,11 +57,11 @@ public class Product {
     @Column(name = "status")
     private Status status;
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "cart_product",
-//    joinColumns = @JoinColumn(name = "product_id"),
-//    inverseJoinColumns = @JoinColumn(name = "cart_id"))
-//    private Set<Cart> carts;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "cart_product",
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "cart_id"))
+    private Set<Cart> carts;
 
     @Override
     public String toString() {
