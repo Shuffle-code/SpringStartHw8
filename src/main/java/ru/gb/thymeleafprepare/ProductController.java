@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.thymeleafprepare.entity.Product;
+import ru.gb.thymeleafprepare.service.CartService;
 import ru.gb.thymeleafprepare.service.ProductService;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 public class ProductController {
 
     private final ProductService productService;
+    private final CartService cartService;
 
     @GetMapping("/all")
     public String getProductList(Model model) {
@@ -41,10 +43,11 @@ public class ProductController {
         return "redirect:/product/all";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/cart/delete/{id}")
     public String deleteById(@PathVariable(name = "id") Long id) {
-        productService.deleteById(id);
-        return "redirect:/product/all";
+        cartService.deleteProduct(productService.findById(id));
+        System.out.println(productService.findById(id));
+        return "cart-list";
     }
 
 //    @GetMapping("/delete")
@@ -52,5 +55,18 @@ public class ProductController {
 //        productService.deleteById(id);
 //        return "redirect:/product/all";
 //    }
+
+    @GetMapping("/cart")
+    public String getCartList(Model model) {
+        model.addAttribute("products", cartService.getProducts());
+        return "cart-list";
+    }
+
+
+    @GetMapping("/addToCart")
+    public String addProductToCart(@RequestParam(name = "id") Long id){
+        cartService.addProduct(productService.findById(id));
+        return "redirect:/product/all";
+    }
 
 }
