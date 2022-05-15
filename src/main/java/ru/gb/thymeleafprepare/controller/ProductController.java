@@ -32,6 +32,10 @@ public class ProductController {
         return "product-list";
     }
 
+    @GetMapping("/authorizePage")
+    public String authCartUser() {
+        return "cart-authorize";
+    }
     @GetMapping
 //    @PreAuthorize("hasAuthority('ADMIN')")
     public String showForm(Model model, @RequestParam(name = "id", required = false) Long id) {

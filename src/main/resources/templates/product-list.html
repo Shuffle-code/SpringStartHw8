@@ -44,8 +44,8 @@
                 </td>
                 <td>
                     <a type="button" sec:authorize="hasAuthority('ADMIN')" th:href="@{${'/product/delete/' + product.id}}" class="btn btn-danger">Удалить</a>
-                    <a type="button"  sec:authorize="hasAuthority('USER') || isAnonymous()" th:href="@{/product/addToCart(id=${product.id})}" class="btn btn-success">Добавить в корзину</a>
-<!--                    <a type="button" sec:authorize="hasAuthority('USER') || isAnonymous()" th:href="@{${'/addToCart/' + product.id}}" class="btn btn-success">Добавить в корзину</a>-->
+                    <a type="button" sec:authorize="hasAuthority('USER')" th:href="@{/product/addToCart(id=${product.id})}" class="btn btn-success">Добавить в корзину</a>
+                    <a type="button" sec:authorize="isAnonymous()" th:href="@{/product/authorizePage}" class="btn btn-success">Добавить в корзину</a>
 <!--                    <a type="button" th:href="@{/product/delete(id=${product.id})}" class="btn btn-danger">Удалить</a>-->
                 </td>
 <!--                <td>-->

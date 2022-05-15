@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             request.antMatchers("/").permitAll();//позволяет ходить всем на страницу без авторизации
             request.antMatchers(HttpMethod.POST, "/product").hasAuthority("ADMIN");
             request.antMatchers(HttpMethod.GET, "/product").hasAuthority("ADMIN");
+//            request.antMatchers(HttpMethod.GET, "/product/authorizePage").permitAll();
             request.mvcMatchers(HttpMethod.GET,"/product/{productId}").permitAll();
         });
 //        auth.inMemoryAuthentication()
