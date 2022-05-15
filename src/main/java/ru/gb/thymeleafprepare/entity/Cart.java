@@ -30,7 +30,6 @@ public class Cart {
     @JoinTable(name = "cart_product",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-
     private Set<Product> products = new HashSet<>();
 
     public boolean addProductToCart(Product product) {
@@ -43,6 +42,11 @@ public class Cart {
 
 
     public boolean deleteProduct(Product product) {
+        System.out.println(products.remove(product));
+        return products.remove(product);
+    }
+
+    public boolean deleteProductInCart(Product product) {
         return products.remove(product);
     }
 

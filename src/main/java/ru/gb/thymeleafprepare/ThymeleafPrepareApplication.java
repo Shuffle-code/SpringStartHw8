@@ -3,6 +3,8 @@ package ru.gb.thymeleafprepare;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import ru.gb.thymeleafprepare.dao.CartDao;
+import ru.gb.thymeleafprepare.entity.Cart;
 import ru.gb.thymeleafprepare.entity.Product;
 import ru.gb.thymeleafprepare.entity.enums.Status;
 import ru.gb.thymeleafprepare.service.ProductService;
@@ -14,11 +16,21 @@ import java.time.LocalDate;
 public class ThymeleafPrepareApplication {
 
     public static void main(String[] args) {
+//        System.out.println("hello");
 
         ConfigurableApplicationContext context = SpringApplication.run(ThymeleafPrepareApplication.class, args);
-        ProductService productService = context.getBean(ProductService.class);
+        CartDao cartDao = context.getBean(CartDao.class);
+//        ProductService productService = context.getBean(ProductService.class);
 //
 //        productService.findAll();
+
+//        Cart cartTest = Cart.builder()
+//                .status("not empty")
+//                .build();
+//        cartDao.save(cartTest);
+
+
+
 //
 //        final Product product = productService.save(Product.builder()
 //                        .cost(new BigDecimal(50.0))
@@ -29,7 +41,7 @@ public class ThymeleafPrepareApplication {
 //
 //        System.out.println("До " + productService.findById(product.getId()));
 //
-//        productService.deleteById(product.getId());
+////        productService.deleteById(product.getId());
 //
 //        System.out.println("После " + productService.findById(product.getId()));
 
