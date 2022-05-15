@@ -110,3 +110,19 @@ insert into PRODUCT (title, cost, MANUFACTURE_DATE, MANUFACTURER_ID) values ('Wa
 insert into PRODUCT (title, cost, MANUFACTURE_DATE, MANUFACTURER_ID) values ('Red Currants', 3170.31, '8/17/2021', 4);
 insert into PRODUCT (title, cost, MANUFACTURE_DATE, MANUFACTURER_ID) values ('Soup - Base Broth Chix', 3869.8, '8/14/2021', 8);
 insert into PRODUCT (title, cost, MANUFACTURE_DATE, MANUFACTURER_ID) values ('Glass - Juice Clear 5oz 55005', 155.34, '10/31/2021', 10);
+
+insert into account_user(username, password, firstname, lastname, account_non_expired, account_non_locked, credentials_non_expired, enabled)
+values ('user', '$2a$10$tNa23wovRhfkjQ.crdUnoe5uNHL7obaZmi2zp9D.5yXPVLbOspEje', 'Иван', 'Иванов', true, true, true,
+        true),
+       ('admin', '$2a$10$QUQkxSU5mjJHJVCPz4pvselpcAm/42KGLGgz/v2kB2nTXWiqaOibK', 'Евгений', 'Малюгин', true, true, true,
+        true);
+
+insert into authority (role)
+values ('USER'),
+       ('ADMIN');
+
+
+
+insert into user_authority (user_id, authority_id)
+values (1, 1),
+       (2, 2);
