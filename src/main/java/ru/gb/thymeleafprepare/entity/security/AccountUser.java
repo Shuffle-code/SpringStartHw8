@@ -32,13 +32,14 @@ import java.util.stream.Collectors;
 
     @Singular
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_authority",
+    @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-//    private Set<Authority> authorities;
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
+    private Set<AccountRole> roles;
 
-//    @Transient
+    @Transient
     private Set<Authority> authorities;
+
     @Builder.Default
     private boolean accountNonExpired = true;
     @Builder.Default
@@ -48,17 +49,17 @@ import java.util.stream.Collectors;
     @Builder.Default
     private boolean enabled = true;
 
-//    public Set<GrantedAuthority> getAuthorities() {
-//        Set<GrantedAuthority> authorities = this.authorities.stream()
-//                .map(AccountRole::getAuthorities)
-//                .flatMap(Set::stream)
-//                .collect(Collectors.toSet());
-//        authorities.addAll(mapRolesToAuthorities(this.roles));
-//        return authorities;
-//    }
-//
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<AccountRole> roles) {
-//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-//    }
+    @Override
+    public Set<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = roles.stream()
+                .map(AccountRole::getAuthorities)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+        authorities.addAll(roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList()));
+        return authorities;
+    }
+
 
 }

@@ -117,12 +117,25 @@ values ('user', '$2a$10$tNa23wovRhfkjQ.crdUnoe5uNHL7obaZmi2zp9D.5yXPVLbOspEje', 
        ('admin', '$2a$10$QUQkxSU5mjJHJVCPz4pvselpcAm/42KGLGgz/v2kB2nTXWiqaOibK', 'Евгений', 'Малюгин', true, true, true,
         true);
 
-insert into authority (role)
-values ('USER'),
-       ('ADMIN');
+insert into authority (permission)
+values ('product.create'),
+       ('product.update'),
+       ('product.read'),
+       ('product.delete');
+
+insert into account_role (name)
+values ('ROLE_ADMIN'),
+       ('ROLE_USER');
 
 
+insert into user_role(user_id, role_id)
+values (1, 2),
+       (2, 1);
 
-insert into user_authority (user_id, authority_id)
+insert into role_authority(ROLE_ID, AUTHORITY_ID)
 values (1, 1),
-       (2, 2);
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (2, 3);
+

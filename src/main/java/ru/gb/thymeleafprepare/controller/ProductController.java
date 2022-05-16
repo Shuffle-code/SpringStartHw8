@@ -22,11 +22,10 @@ public class ProductController {
 
     private final ProductService productService;
     private final CartService cartService;
-    private Cart cart;
-//    ConfigurableApplicationContext context = SpringApplication.run(ThymeleafPrepareApplication.class, args);
-//    CartDao cartDao = context.getBean(CartDao.class);
 
     @GetMapping("/all")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('product.read')")
     public String getProductList(Model model) {
         model.addAttribute("products", productService.findAll());
         return "product-list";
@@ -36,8 +35,9 @@ public class ProductController {
     public String authCartUser() {
         return "cart-authorize";
     }
+
     @GetMapping
-//    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('product.create', 'product.update')")
     public String showForm(Model model, @RequestParam(name = "id", required = false) Long id) {
         Product product;
         if (id != null) {
@@ -51,6 +51,7 @@ public class ProductController {
 
     @GetMapping("/{productId}")
 //    @PreAuthorize("isAnonymous()")
+//    @PreAuthorize("hasAnyAuthority('product.read')")
     public String info(Model model, @PathVariable(name = "productId") Long id) {
         Product product;
         if (id != null) {
@@ -63,6 +64,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('product.create', 'product.update')")
     public String saveProduct(Product product) {
         product.setManufactureDate(LocalDate.now());
         productService.save(product);
@@ -77,6 +79,7 @@ public class ProductController {
 
 
     @GetMapping("/delete/{id}")
+//    @PreAuthorize("hasAnyAuthority('product.delete')")
     public String deleteById(@PathVariable(name = "id") Long id) {
         productService.deleteById(id);
         return "redirect:/product/all";

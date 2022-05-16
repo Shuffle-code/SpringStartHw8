@@ -14,23 +14,23 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "AUTHORITY")
-//public class Authority implements GrantedAuthority {
 public class Authority implements GrantedAuthority{
+
+    static final long serialVersionUID = -3282709929270204703L;
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "role")
-    private String role;
+    private String permission;
 
     @ManyToMany(mappedBy = "authorities")
-    private Set<AccountUser> users;
+    private Set<AccountRole> roles;
 
     @Override
     public String getAuthority() {
-        return this.role;
+        return this.permission;
     }
 
 }
