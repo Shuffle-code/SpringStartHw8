@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests((request) -> {
             request.antMatchers("/product/all").permitAll();
             request.antMatchers("/").permitAll();//позволяет ходить всем на страницу без авторизации
-            request.antMatchers(HttpMethod.POST, "/product").hasAuthority("ADMIN");
-            request.antMatchers(HttpMethod.GET, "/product").hasAuthority("ADMIN");
+            request.antMatchers(HttpMethod.POST, "/product").hasAuthority("product.create");
+            request.antMatchers(HttpMethod.GET, "/product").hasAuthority("product.create");
 //            request.antMatchers(HttpMethod.GET, "/product/authorizePage").permitAll();
             request.mvcMatchers(HttpMethod.GET,"/product/{productId}").permitAll();
         });
@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests((request) -> {
             ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)request.anyRequest()).authenticated();
         });
+        http.exceptionHandling().accessDeniedPage("/access-denied");
         http.formLogin();
         http.httpBasic();
     }
